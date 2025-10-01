@@ -16,7 +16,9 @@ Kiara Mindy - Áfanga: FORR3FL05EU - Tækniskólinn
 
 
 ### Heimildir og söfn notuð.
-Ég fékk assets frá kenney.nl og opengameart.org
+* https://opengameart.org/content/dog-spritesheets
+* https://opengameart.org/content/16x16-emotes-for-rpgs-and-digital-pets
+* https://opengameart.org/content/emotes-pack
 
 
 ### Útkoman. Hvernig til tókst, hver væru næstu skref ef haldið væri áfram þróun frumgerðar.
