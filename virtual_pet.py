@@ -4,26 +4,13 @@ import pygame, sys, time
 pygame.init()
 screen = pygame.display.set_mode((400, 400))
 
-hunger = 100
-clock = pygame.time.Clock()
+# load full sprite sheet
+sprite_sheet = pygame.image.load('spritesheet_black.png').convert_alpha()
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:  # Feed pet
-                hunger = min(hunger + 20, 100)
+# possible to cut out each frame from the sheet with this function
+def get_sprite(sheet, x, y, width, height):
+    # extracts a single sprite from the sheet
+    image = pygame.Surface((width, height), pygame.SRCALPHA)  
+    image.blit(sheet, (0, 0), (x, y, width, height))  
+    return image
 
-    # bar decreases over time
-    hunger -= 0.05
-    if hunger <= 0:
-        pet_state = "sad"
-    else:
-        pet_state = "happy"
-
-    # background + pet + hunger bar
-    screen.fill((200,200,200))
-    pygame.draw.rect(screen, (255,0,0), (50,50, hunger*3, 20))  # hunger bar
-    pygame.display.flip()
-    clock.tick(30)
