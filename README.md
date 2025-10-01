@@ -4,6 +4,7 @@
 Kiara Mindy - Áfanga: FORR3FL05EU - Tækniskólinn
 
 ### Stutt verkefnalýsing og skýrar leiðbeiningar um notkun.
+Leikurinn er 2d virtual pet eins og "Tamagotchi".
 - Þú getur valið lit á hundinum (hvítan, brúnt eða svartan).
 - Hundurinn getur sýnt mismunandi tilfinningar (leiður, mjög leiður, glaður, mjög glaður, svangur, hlutlaus og óþægilegur).
 - Þú getur gefið hundinum að borða, spilað við hann og svæft hann.
