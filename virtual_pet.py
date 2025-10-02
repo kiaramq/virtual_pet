@@ -27,13 +27,42 @@ clock = pygame.time.Clock()
 font = pygame.font.Font(None, 36)
 small_font = pygame.font.Font(None, 24)
 
+import os
+
+# load emotion images
+EMOTION_PATH = os.path.join("assets", "Emotes", "left")
+EMOTION_IMAGES = {
+    "very_happy": pygame.image.load(os.path.join(EMOTION_PATH, "veryHappyEmote.png")),
+    "happy": pygame.image.load(os.path.join(EMOTION_PATH, "happyEmote.png")),
+    "neutral": pygame.image.load(os.path.join(EMOTION_PATH, "neutralEmote.png")),
+    "bored": pygame.image.load(os.path.join(EMOTION_PATH, "boredEmote.png")),
+    "sad": pygame.image.load(os.path.join(EMOTION_PATH, "sadEmote.png")),
+    "angry": pygame.image.load(os.path.join(EMOTION_PATH, "angryEmote.png")),
+    "worried": pygame.image.load(os.path.join(EMOTION_PATH, "worriedEmote.png")),
+}
+
+def get_emotion_image(happiness):
+    if happiness >= 85:
+        return EMOTION_IMAGES["very_happy"]
+    elif happiness >= 65:
+        return EMOTION_IMAGES["happy"]
+    elif happiness >= 45:
+        return EMOTION_IMAGES["neutral"]
+    elif happiness >= 30:
+        return EMOTION_IMAGES["bored"]
+    elif happiness >= 15:
+        return EMOTION_IMAGES["sad"]
+    elif happiness >= 5:
+        return EMOTION_IMAGES["worried"]
+    else:
+        return EMOTION_IMAGES["angry"]
+
 class VirtualPet:
     def __init__(self):
         # pet stats (0-100)
         self.hunger = 50
         self.happiness = 50
         self.energy = 50
-        
         # time tracking for stat decay
         self.last_update = time.time()
     
@@ -85,13 +114,18 @@ def draw_stat_bar(screen, x, y, width, height, value, max_value, color):
     pygame.draw.rect(screen, BLACK, (x, y, width, height), 2)
 
 def draw_ui(screen, pet):
-    """Draw the user interface"""
+    """Draw the user interface with emotion image"""
+    # Emotion image above bars
+    emotion_img = get_emotion_image(pet.happiness)
+    img_rect = emotion_img.get_rect(center=(SCREEN_WIDTH // 2, 60))
+    screen.blit(emotion_img, img_rect)
+
     # title
     title_text = font.render("Virtual Pet", True, BLACK)
     screen.blit(title_text, (10, 10))
     
     # stats
-    stats_y = 60
+    stats_y = 120
     bar_width = 200
     bar_height = 20
     
@@ -121,7 +155,7 @@ def draw_ui(screen, pet):
     
     for i, instruction in enumerate(instructions):
         instruction_text = small_font.render(instruction, True, BLACK)
-        screen.blit(instruction_text, (SCREEN_WIDTH - 200, 60 + i * 25))
+        screen.blit(instruction_text, (SCREEN_WIDTH - 200, 120 + i * 25))
 
 def main():
     """Main game loop"""
