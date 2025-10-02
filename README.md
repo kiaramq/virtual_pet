@@ -19,7 +19,7 @@ Leikurinn er 2d virtual pet eins og "Tamagotchi".
 ### Heimildir og söfn notuð.
 * https://opengameart.org/content/dog-spritesheets
 * https://opengameart.org/content/16x16-emotes-for-rpgs-and-digital-pets
-* https://opengameart.org/content/emotes-pack
+* https://opengameart.org/content/cozy-endless-game-background
 
 
 ### Útkoman. Hvernig til tókst, hver væru næstu skref ef haldið væri áfram þróun frumgerðar.
