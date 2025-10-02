@@ -11,12 +11,12 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 FPS = 60
 
-# colors
+# colors (color-hex.com)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
+GREEN = (186,255,201)
+PINK = (255,179,186)
+BLUE = (186,225,255)
 GRAY = (128, 128, 128)
 
 # initialize screen
@@ -35,6 +35,7 @@ DOG_FRAME_HEIGHT = 20
 # load font
 WELCOME_FONT = pygame.font.Font("assets/fonts/semiboldbaloo.ttf", 48)
 FONT = pygame.font.Font("assets/fonts/regularbaloo.ttf", 36)
+SMALL_FONT = pygame.font.Font("assets/fonts/regularbaloo.ttf", 24)
 
 # Load puppy spritesheets
 DOG_SPRITES_PATH = os.path.join("assets", "dogs")
@@ -63,33 +64,28 @@ def show_intro_and_choose_color(screen, font):
     chosen_color = None
     while intro_running:
         screen.blit(WELCOME_BG, (0, 0))
-    title = WELCOME_FONT.render("Welcome to Virtual Pet!", True, (0, 0, 0))
-    prompt = FONT.render("Choose your puppy:", True, (0, 0, 0))
+        title = WELCOME_FONT.render("Welcome to Virtual Pet!", True, (0, 0, 0))
+        prompt = FONT.render("Choose your puppy:", True, (0, 0, 0))
+        screen.blit(title, (200, 100))
+        screen.blit(prompt, (200, 160))
 
-    # Draw puppy images in a row with borders
-    puppy_colors = ["black", "brown", "white"]
-    spacing = 60 + DOG_FRAME_WIDTH * INTRO_PUPPY_SCALE  # space between images
-    total_width = (len(puppy_colors) - 1) * spacing + (DOG_FRAME_WIDTH * INTRO_PUPPY_SCALE)
-    start_x = (SCREEN_WIDTH - total_width) // 2
-    y = 220
-
-    # Center title and prompt above the row
-    title_rect = title.get_rect(center=(SCREEN_WIDTH // 2, y - 80))
-    prompt_rect = prompt.get_rect(center=(SCREEN_WIDTH // 2, y - 40))
-    screen.blit(title, title_rect)
-    screen.blit(prompt, prompt_rect)
-
-    for i, color in enumerate(puppy_colors):
-        img = INTRO_PUPPY_IMAGES[color]
-        img_rect = img.get_rect()
-        img_rect.topleft = (start_x + i * spacing, y)
-        screen.blit(img, img_rect)
-        # Draw border (black, 4px thick)
-        pygame.draw.rect(screen, (0,0,0), img_rect, 4)
-        # Draw label below each puppy
-        label = font.render(f"{i+1} - {color.capitalize()}", True, (0,0,0))
-        label_rect = label.get_rect(center=(img_rect.centerx, img_rect.bottom + 25))
-        screen.blit(label, label_rect)
+        # Draw puppy images in a row with borders
+        puppy_colors = ["black", "brown", "white"]
+        spacing = 60 + DOG_FRAME_WIDTH * INTRO_PUPPY_SCALE  # space between images
+        total_width = (len(puppy_colors) - 1) * spacing + (DOG_FRAME_WIDTH * INTRO_PUPPY_SCALE)
+        start_x = (SCREEN_WIDTH - total_width) // 2
+        y = 220
+        for i, color in enumerate(puppy_colors):
+            img = INTRO_PUPPY_IMAGES[color]
+            img_rect = img.get_rect()
+            img_rect.topleft = (start_x + i * spacing, y)
+            screen.blit(img, img_rect)
+            # Draw border (black, 4px thick)
+            pygame.draw.rect(screen, (0,0,0), img_rect, 4)
+            # Draw label below each puppy
+            label = FONT.render(f"{i+1} - {color.capitalize()}", True, (0,0,0))
+            label_rect = label.get_rect(center=(img_rect.centerx, img_rect.bottom + 25))
+            screen.blit(label, label_rect)
 
         pygame.display.flip()
         for event in pygame.event.get():
@@ -202,7 +198,7 @@ def draw_ui(screen, pet):
     screen.blit(emotion_img, img_rect)
 
     # title
-    title_text = font.render("Virtual Pet", True, BLACK)
+    title_text = FONT.render("Virtual Pet", True, BLACK)
     screen.blit(title_text, (10, 10))
 
     # stats
@@ -211,19 +207,19 @@ def draw_ui(screen, pet):
     bar_height = 20
 
     # hunger bar
-    hunger_text = FONT.render("Hunger:", True, BLACK)
+    hunger_text = SMALL_FONT.render("Hunger:", True, BLACK)
     screen.blit(hunger_text, (10, stats_y))
     draw_stat_bar(screen, 80, stats_y, bar_width, bar_height, pet.hunger, 100, GREEN)
 
     # happiness bar
-    happiness_text = FONT.render("Happiness:", True, BLACK)
+    happiness_text = SMALL_FONT.render("Happiness:", True, BLACK)
     screen.blit(happiness_text, (10, stats_y + 30))
     draw_stat_bar(screen, 80, stats_y + 30, bar_width, bar_height, pet.happiness, 100, BLUE)
 
     # energy bar
-    energy_text = FONT.render("Energy:", True, BLACK)
+    energy_text = SMALL_FONT.render("Energy:", True, BLACK)
     screen.blit(energy_text, (10, stats_y + 60))
-    draw_stat_bar(screen, 80, stats_y + 60, bar_width, bar_height, pet.energy, 100, RED)
+    draw_stat_bar(screen, 80, stats_y + 60, bar_width, bar_height, pet.energy, 100, PINK)
 
     # instructions
     instructions = [
@@ -235,7 +231,7 @@ def draw_ui(screen, pet):
     ]
 
     for i, instruction in enumerate(instructions):
-        instruction_text = FONT.render(instruction, True, BLACK)
+        instruction_text = SMALL_FONT.render(instruction, True, BLACK)
         screen.blit(instruction_text, (SCREEN_WIDTH - 200, 120 + i * 25))
 
 def main():
